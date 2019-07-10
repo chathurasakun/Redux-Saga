@@ -1,18 +1,22 @@
 import React, { PureComponent } from 'react';
 import { FlatList, View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-import { Container, Header, Left, Right, Title, Body } from 'native-base';
+import { Container, Header, Left, Right, Title, Body, Button, Icon } from 'native-base';
 import ItemCell from '../appComponents/itemCell';
 import { Actions } from 'react-native-router-flux';
+import Assets from '../functions/image';
 import { getListRequest } from '../redux/Actions/CartAction';
 import { connect } from 'react-redux';
 
 class ListView extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
+  // static navigationOptions = {
+  //   tabBarLabel: 'List',
+  //   tabBarIcon: ({ tintColor }) => (
+  //     <Image
+  //       source={Assets.delete}
+  //       style={[{ tintColor: tintColor }]}
+  //     />
+  //   ),
+  // };
 
   componentDidMount = () => {
     this.props.getListRequest();
@@ -22,7 +26,13 @@ class ListView extends PureComponent {
     return (
       <Container>
         <Header>
-          <Left />
+          <Left >
+            <Button
+              transparent
+              onPress={() => Actions.drawerOpen()}>
+              <Icon name='menu' style={{ color: '#FFFFFF' }} />
+            </Button>
+          </Left>
           <Body>
             <Title style={{ color: '#FFFFFF', alignSelf: 'center' }}>List</Title>
           </Body>
@@ -53,7 +63,6 @@ class ListView extends PureComponent {
               data={this.props.cardData}
               keyExtractor={(item, index) => item.id.toString()}
               renderItem={({ item }) => <ItemCell listItem={item} fromCardView={false} />}
-              scrollEnabled={true}
             />
           }
         </View>

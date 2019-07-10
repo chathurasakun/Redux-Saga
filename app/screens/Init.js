@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import Api from '../server/Service';
 import { Container } from 'native-base';
 import { ActivityIndicator, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 class Init extends PureComponent {
   constructor(props) {
@@ -17,7 +17,7 @@ class Init extends PureComponent {
       .then((responseJson) => {
         this.setState({
           isFetching: false,
-        }, () => Actions.listView({ items: responseJson.fruits }));
+        }, () => Actions.Authenticated({ type: ActionConst.RESET, items: responseJson.fruits }));
       })
       .catch((error) => {
         console.error(error);
